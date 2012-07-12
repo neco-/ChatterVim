@@ -11,11 +11,11 @@ first, you need to authorize ChatterVim to access chatter resources.
 ----
 settings:
 
-    " set browser launch command  
-    let g:chatter_browser_cmd = 'cygstart firefox.exe'  
+    " set browser launch command
+    let g:chatter_browser_cmd = 'cygstart firefox.exe'
 
-    " set proxy  
-    let g:chatter_proxy = 'proxy_url:port'  
+    " set proxy
+    let g:chatter_proxy = 'proxy_url:port'
 
 ----
 commandline commands:
