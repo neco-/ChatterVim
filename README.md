@@ -4,7 +4,7 @@ ChatterVim
 Chatter client for Vim.  
 
 first, you need to authorize ChatterVim to access chatter resources.  
-1. access an URL shown by ChatterVim.  
+1. access an URL shown by ChatterVim in your browser.  
 2. login chatter site and allow ChatterVim to access.  
 3. after allowing, copy a redirected URL in address bar of you browser and paste to ChatterVim.  
 
