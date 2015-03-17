@@ -963,8 +963,8 @@ function! s:exec_curl(func_name, ...)
     endif
 
     if s:is_session_expired(l:output_json) == 1
-        let l:reuslt = s:GetAccessToken_by_refresh_token()
-        if l:reuslt != s:error_code_ok
+        let l:result = s:GetAccessToken_by_refresh_token()
+        if l:result != s:error_code_ok
             call s:error_msg('failed to refresh access_token')
             return {}
         endif
@@ -979,6 +979,19 @@ function! s:exec_curl(func_name, ...)
             return {}
         endif
 
+        if type(l:output_json2) == type([])
+            for dict in l:output_json2
+                if has_key(dict, 'errorCode')
+                    call s:error_msg('errorCode was found in result JSON')
+                    return {}
+                endif
+            endfor
+        endif
+
+        if type(l:output_json2) != type({})
+            call s:error_msg('JSON result was not dictionary')
+            return {}
+        endif
         if has_key(l:output_json2, 'errorCode')
             call s:error_msg('errorCode was found in result JSON')
             return {}
@@ -987,6 +1000,19 @@ function! s:exec_curl(func_name, ...)
         return l:output_json2
     endif
 
+    if type(l:output_json) == type([])
+        for dict in l:output_json
+            if has_key(dict, 'errorCode')
+                call s:error_msg('errorCode was found in result JSON')
+                return {}
+            endif
+        endfor
+    endif
+
+    if type(l:output_json) != type({})
+        call s:error_msg('JSON result was not dictionary')
+        return {}
+    endif
     if has_key(l:output_json, 'errorCode')
         call s:error_msg('errorCode was found in result JSON')
         return {}
@@ -1160,7 +1186,9 @@ function! ChatterVim#ChatterGetVersion()
         return
     endif
 
-    let s:chatter_version = l:latest_url
+" v33.0 was changed from feed-item to feed-elements
+" currently use v25.0
+"    let s:chatter_version = l:latest_url
 endfunction
 
 let &cpo = s:save_cpo
